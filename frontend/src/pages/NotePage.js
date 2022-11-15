@@ -15,7 +15,7 @@ const NotePage = ({match,history}) => {
     if (noteId === 'new') return
     let response = await fetch(`/api/notes/${noteId}`);
     let data = await response.json();
-    setNote(data);
+    setNote(data.body);
   }
 
   let updateNote = async()=>{
@@ -89,7 +89,7 @@ const NotePage = ({match,history}) => {
         )}
          
       </div>
-        <textarea onChange={(e)=>setNote({...note, 'body':e.target.value})} value={note?.body}></textarea>
+        <textarea onChange={(e)=>setNote(e.target.value)} value={note}></textarea>
     </div>
   )
 }

@@ -64,8 +64,10 @@ def getNotes(request):
         return Response(seralizer.data,status=status.HTTP_200_OK)
     
     if request.method == 'POST':
-        data = request.body
-        return Response({data},status=status.HTTP_200_OK)
+        data = request.data
+        note = Note.objects.create(body = data)
+        seralizer = NoteSerializer(note,many=False)
+        return Response(seralizer.data,status=status.HTTP_200_OK)
 
 
 # it will just get specific note, not all as we have specified cond.
@@ -75,7 +77,7 @@ def getNote(request,pk):
     if request.method == 'GET':
         note = Note.objects.get(id=pk)
         seralizer = NoteSerializer(note,many=False)
-        return Response({seralizer.data},status=status.HTTP_200_OK)
+        return Response(seralizer.data,status=status.HTTP_200_OK)
 
     if request.method == 'PUT':
         data = request.data
@@ -83,7 +85,7 @@ def getNote(request,pk):
         note.body = data
         note.save()
         serializer = NoteSerializer(note,many = False)
-        return Response({serializer.data},status=status.HTTP_200_OK)
+        return Response(serializer.data,status=status.HTTP_200_OK)
 
     if request.method == 'DELETE':
         note = Note.objects.get(id=pk)

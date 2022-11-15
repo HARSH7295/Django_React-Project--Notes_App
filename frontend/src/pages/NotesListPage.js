@@ -25,6 +25,7 @@ let getNotes = async()=>{
         </div>
         <div className='notes-list'>
             {notes.map((note,index)=>{
+                console.log(note)
                 return (<ListItem key={index} para={note} />);
                 }
             )} 
